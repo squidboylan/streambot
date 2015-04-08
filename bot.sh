@@ -15,8 +15,8 @@ tail -f .botfile | openssl s_client -connect $server:6697 | while true; do
         send "USER streambot streambot streambot :streambot"
         send "NICK streambot"
         send "JOIN #squidtest"
-        #send "JOIN #starcraft"
-        #send "JOIN #robots $key"
+        send "JOIN #starcraft"
+        send "JOIN #robots $key"
         started="yes"
     fi
     read irc
@@ -38,7 +38,7 @@ tail -f .botfile | openssl s_client -connect $server:6697 | while true; do
                 send "PRIVMSG $chan :$streamer is not live"
             fi
 
-        elif `echo $message | tr -d '\r' | egrep '^:streambot: help$' > /dev/null`; then
+        elif `echo $message | egrep '^:streambot: help$' > /dev/null`; then
             send "PRIVMSG $chan :I am a bot that helps you figure out if your favorite streamers are online \"!stream \$stream\" to figure out if \$stream is online"
 
         elif `echo $message | egrep '^:streambot: source$' > /dev/null`; then
